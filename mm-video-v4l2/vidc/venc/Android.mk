@@ -67,14 +67,17 @@ libmm-venc-inc      += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/adreno
 libmm-venc-inc      += $(QCOM_MEDIA_ROOT)/libc2dcolorconvert
 libmm-venc-inc      += $(TARGET_OUT_HEADERS)/libvqzip
+
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-venc-inc      += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+# Common Dependencies
+libmm-venc-add-dep  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 ifeq ($(call is-board-platform-in-list, $(TARGETS_THAT_SUPPORT_SW_VENC_ROTATION)),true)
 libmm-venc-inc      += hardware/libhardware/include/hardware
 endif
 
-# Common Dependencies
-libmm-venc-add-dep  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 # ---------------------------------------------------------------------------------
 # 			Make the Shared library (libOmxVenc)

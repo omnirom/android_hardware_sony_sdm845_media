@@ -63,15 +63,18 @@ libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/adreno
 libmm-vdec-inc          += $(QCOM_MEDIA_ROOT)/libc2dcolorconvert
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/mm-video/SwVdec
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/mm-video/swvdec
+
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-vdec-inc          += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+# Common Dependencies
+libmm-vdec-add-dep := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 ifeq ($(PLATFORM_SDK_VERSION), 18)  #JB_MR2
 libmm-vdec-def += -DANDROID_JELLYBEAN_MR2=1
 libmm-vdec-inc += $(QCOM_MEDIA_ROOT)/libstagefrighthw
 endif
 
-# Common Dependencies
-libmm-vdec-add-dep := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 ifeq ($(call is-platform-sdk-version-at-least, 19),true)
 # This feature is enabled for Android KK+
